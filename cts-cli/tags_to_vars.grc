@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='utf-8'?>
+<?grc format='1' created='3.7.11'?>
+<flow_graph>
+  <timestamp>Tue Oct 16 12:50:06 2018</timestamp>
+  <block>
+    <key>options</key>
+    <param>
+      <key>author</key>
+      <value>Jonathan Andersson</value>
+    </param>
+    <param>
+      <key>window_size</key>
+      <value></value>
+    </param>
+    <param>
+      <key>category</key>
+      <value>[RF Over IP]</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>description</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(8, 8)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>generate_options</key>
+      <value>hb</value>
+    </param>
+    <param>
+      <key>hier_block_src_path</key>
+      <value>.:</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>tags_to_vars</value>
+    </param>
+    <param>
+      <key>max_nouts</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>qt_qss_theme</key>
+      <value></value>
+    </param>
+    <param>
+      <key>realtime_scheduling</key>
+      <value></value>
+    </param>
+    <param>
+      <key>run_command</key>
+      <value>{python} -u {filename}</value>
+    </param>
+    <param>
+      <key>run_options</key>
+      <value>prompt</value>
+    </param>
+    <param>
+      <key>run</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>thread_safe_setters</key>
+      <value></value>
+    </param>
+    <param>
+      <key>title</key>
+      <value>Tags to Vars</value>
+    </param>
+  </block>
+  <block>
+    <key>epy_block</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_io_cache</key>
+      <value>('Tags to Vars', 'blk', [('parent', 'None'), ('tag_map', "{'rx_rate': 'set_samp_rate(value)'}")], [('0', 'complex', 1)], [], 'Tags to Vars', ['parent', 'tag_map'])</value>
+    </param>
+    <param>
+      <key>_source_code</key>
+      <value>"""
+Embedded Python Blocks:
+
+Each time this file is saved, GRC will instantiate the first class it finds
+to get ports and parameters of your block. The arguments to __init__  will
+be the parameters. All of them are required to have default values!
+"""
+
+import numpy as np
+from gnuradio import gr
+import pmt
+
+print "Tags to Var imported"
+
+class blk(gr.basic_block):
+    """Tags to Vars"""
+
+    def __init__(self, parent=self if 'self' in locals() else None, tag_map={"rx_rate": "set_samp_rate(value)"}): # only default arguments here
+		"""arguments to this function show up as parameters in GRC"""
+		gr.basic_block.__init__(
+		#gr.sync_block.__init__(
+			self,
+			name='Tags to Vars',   # will show up in GRC
+			in_sig=[np.complex64],
+			out_sig=[]
+		)
+		# if an attribute with the same name as a parameter is found, a callback is registered (properties work, too).
+		self.parent = parent
+		self.tag_map = tag_map
+		self.hist = {}
+		#self.tag_map = {"rx_rate": "set_samp_rate(value)"}
+
+		print "Tags to Var initialized\n\n\n"
+
+		self.set_tag_propagation_policy(0) #gr_extras.TPP_DONT		
+		return
+
+    def general_work(self, input_items, output_items): #basic_block
+    #def work(self, input_items, output_items): #sync_block
+
+		if self.parent is not None:
+			packet_begin_tags = self.get_tags_in_window(0, 0, len(input_items[0]))		
+			for tag in packet_begin_tags:
+				#offset = tag.offset
+				key = pmt.symbol_to_string(tag.key)
+				value = pmt.to_python(tag.value)
+				if key in self.tag_map:
+					if key not in self.hist:
+						self.hist[key] = None
+					if value != self.hist[key]:
+						print key, '=', value
+						self.hist[key] = value
+					eval("self.parent.%s" % (self.tag_map[key]))
+			
+		self.consume_each(len(input_items[0]))
+		return 0
+</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(240, 132)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>epy_tags_to_vars</value>
+    </param>
+    <param>
+      <key>parent</key>
+      <value>parent</value>
+    </param>
+    <param>
+      <key>tag_map</key>
+      <value>tag_map</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(64, 140)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>pad_source_0</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>in</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(192, 12)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>parent</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>Parent</value>
+    </param>
+    <param>
+      <key>short_id</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>self if 'self' in locals() else None</value>
+    </param>
+  </block>
+  <block>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(280, 12)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>tag_map</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>Tag Map</value>
+    </param>
+    <param>
+      <key>short_id</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>{"rx_rate": "set_samp_rate(value)"}</value>
+    </param>
+  </block>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>epy_tags_to_vars</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+</flow_graph>
