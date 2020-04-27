@@ -68,7 +68,15 @@ rx_rate = 128000.0
 # Use with Docker
 IQ samples are written to a named pipe (the FIFO file), which is an OS-dependent beast. In theory, you could run the 'rx_to_fifo.py' receiver within a Docker container and consume IQ-samples from *outside* the Docker container. However, this will work only if the host operating system is the same of the container operating system (i.e., Linux). We tried with a macOS host: didn't work!
 
-A workaround would be to use a second container that proxies that FIFO to a TCP socket (using socat), expose that port to the host, and then use socat on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
+```bash
+$ ./docker-run.sh 'python rx_to_fifo.py                              \
+  --server-ip=<this is given by the organizers>     \
+  --rx-frequency=<each challenge has its own frequency>'
+```
+
+And then you can use `./cts.fifo` as any other named pipe (FIFO).
+
+A trick to make this work on any OS would be to use a second container that proxies that FIFO to a TCP socket (using socat), expose that port to the host, and then use socat on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
 
 # Receive with SDR Tools
 Now you can consume RF data (IQ samples) from the FIFO. For example, with GQRX you can use the following device string:
