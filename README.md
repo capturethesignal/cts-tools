@@ -2,7 +2,7 @@
 
 These are client tools used to connect to the [CTS](https://trendmicro.com/cts) infrastructure and receive RF data (IQ samples) over IP. They need a working GNU Radio 3.7 installation,  they're headless, and require no configuration file. We tested them with GNU Radio 3.7.14.
 
-# Build with Docker
+# Build (with Docker)
 ```bash
 $ cd cts-cli/
 $ ./docker-run.sh 'make all'
