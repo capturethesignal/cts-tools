@@ -1,11 +1,17 @@
 # CTS client tools (CLI)
 
-These are client tools used to connect to the CTS infrastructure and receive RF data (IQ samples) over IP. They need a working GNURadio >=3.7 installation,  they're headless, and require no configuration file.
+These are client tools used to connect to the [CTS](https://trendmicro.com/cts) infrastructure and receive RF data (IQ samples) over IP. They need a working GNU Radio 3.7 installation,  they're headless, and require no configuration file. We tested them with GNU Radio 3.7.14.
 
-# Build
+# Build with Docker
 ```bash
 $ cd cts-cli/
-$ make
+$ ./docker-run.sh 'make all'
+```
+
+# Build on your Host (requires working GNU Radio 3.7)
+```bash
+$ cd cts-cli/
+$ make all
 ```
 
 Should you encounter **build errors on GNURadio 3.8**, please [check this out](https://github.com/gnuradio/gnuradio/issues/2763), or just use one of the provided VMs (they're tested). The cause is unknown, but a workaround exists (comment out `global_blocks_path` in `~/.gnuradio/grc.conf`).
@@ -21,10 +27,6 @@ Options:
   -h, --help            show this help message and exit
   --rx-frequency=RX_FREQUENCY
                         Set RX Frequency [default=900000000]
-  --server-address-format=SERVER_ADDRESS_FORMAT
-                        Set Server Address Format [default=tcp://%s:%d]
-  --server-bw-per-port=SERVER_BW_PER_PORT
-                        Set Server Bandwidth per Port [default=1000000]
   --server-ip=SERVER_IP
                         Set Server IP [default=127.0.0.1]
   --server-port-base=SERVER_PORT_BASE
@@ -62,6 +64,11 @@ rx_rate = 128000.0
 ```
 
 **IMPORTANT:** Each signal has it's own sample rate! Always check the reported sample rate before you start working on a signal. You can kill and restart the `rx_to_fifo.py` script as many times as you need (especially if it appears dead).
+
+# Use with Docker
+IQ samples are written to a named pipe (the FIFO file), which is an OS-dependent beast. In theory, you could run the 'rx_to_fifo.py' receiver within a Docker container and consume IQ-samples from *outside* the Docker container. However, this will work only if the host operating system is the same of the container operating system (i.e., Linux). We tried with a macOS host: didn't work!
+
+A workaround would be to use a second container that proxies that FIFO to a TCP socket (using socat), expose that port to the host, and then use socat on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
 
 # Receive with SDR Tools
 Now you can consume RF data (IQ samples) from the FIFO. For example, with GQRX you can use the following device string:

@@ -30,7 +30,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(784, 16)</value>
+      <value>(344, 8)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -87,6 +87,33 @@
     <param>
       <key>placement</key>
       <value>(0,0)</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(592, 516)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>config_file</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>config_file_path</value>
     </param>
   </block>
   <block>
@@ -171,6 +198,100 @@
     </param>
   </block>
   <block>
+    <key>variable_config</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>config_file</key>
+      <value>config_file</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"tcp://%s:%d"</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(184, 368)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>server_address_format</value>
+    </param>
+    <param>
+      <key>option</key>
+      <value>"server_address_format"</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>"main"</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>string</value>
+    </param>
+    <param>
+      <key>writeback</key>
+      <value>None</value>
+    </param>
+  </block>
+  <block>
+    <key>variable_config</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>config_file</key>
+      <value>config_file</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1000000</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(336, 512)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>server_bw_per_port</value>
+    </param>
+    <param>
+      <key>option</key>
+      <value>"server_bw_per_port"</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>main</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>writeback</key>
+      <value>None</value>
+    </param>
+  </block>
+  <block>
     <key>variable</key>
     <param>
       <key>comment</key>
@@ -182,7 +303,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(144, 276)</value>
+      <value>(496, 516)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -198,30 +319,26 @@
     </param>
   </block>
   <block>
-    <key>variable_qtgui_label</key>
+    <key>variable_config</key>
     <param>
       <key>comment</key>
       <value></value>
     </param>
     <param>
+      <key>config_file</key>
+      <value>config_file</value>
+    </param>
+    <param>
       <key>value</key>
-      <value>samp_rate</value>
+      <value>10000</value>
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(784, 284)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>2,0</value>
+      <value>(184, 512)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -229,187 +346,23 @@
     </param>
     <param>
       <key>id</key>
-      <value>variable_qtgui_label_0</value>
+      <value>server_port_base</value>
     </param>
     <param>
-      <key>label</key>
-      <value>Sample Rate</value>
+      <key>option</key>
+      <value>"server_port_base"</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>main</value>
     </param>
     <param>
       <key>type</key>
-      <value>real</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
+      <value>int</value>
     </param>
     <param>
-      <key>value</key>
-      <value>fifo</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>formatter</key>
+      <key>writeback</key>
       <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(784, 204)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>1,0</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_0</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>FIFO</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>string</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>rx_frequency</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(784, 444)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>4,0</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_1</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>RX Frequency</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>real</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"True" if throttle else "False"</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(784, 364)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>3,0</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_2</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Throttle</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>string</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>server_address</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(784, 124)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>0,0</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_1</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Server URL</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>string</value>
     </param>
   </block>
   <block>
@@ -461,6 +414,53 @@
     <param>
       <key>vlen</key>
       <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(8, 344)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>config_file_path</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>Configuration file path</value>
+    </param>
+    <param>
+      <key>short_id</key>
+      <value></value>
+    </param>
+    <param>
+      <key>hide</key>
+      <value>none</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>string</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"./config.cfg"</value>
     </param>
   </block>
   <block>
@@ -714,100 +714,6 @@ else:
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 376)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>server_address_format</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Server Address Format</value>
-    </param>
-    <param>
-      <key>short_id</key>
-      <value></value>
-    </param>
-    <param>
-      <key>hide</key>
-      <value>none</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>string</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"tcp://%s:%d"</value>
-    </param>
-  </block>
-  <block>
-    <key>parameter</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(8, 656)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>server_bw_per_port</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Server Bandwidth per Port</value>
-    </param>
-    <param>
-      <key>short_id</key>
-      <value></value>
-    </param>
-    <param>
-      <key>hide</key>
-      <value>none</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>long</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>1000000</value>
-    </param>
-  </block>
-  <block>
-    <key>parameter</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
       <value>(8, 472)</value>
     </param>
     <param>
@@ -837,53 +743,6 @@ else:
     <param>
       <key>value</key>
       <value>"127.0.0.1"</value>
-    </param>
-  </block>
-  <block>
-    <key>parameter</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(8, 560)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>server_port_base</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Server Port Base</value>
-    </param>
-    <param>
-      <key>short_id</key>
-      <value></value>
-    </param>
-    <param>
-      <key>hide</key>
-      <value>none</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>long</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>10000</value>
     </param>
   </block>
   <block>
@@ -949,7 +808,7 @@ else:
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 752)</value>
+      <value>(8, 560)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -977,7 +836,7 @@ else:
     </param>
     <param>
       <key>value</key>
-      <value>100</value>
+      <value>1000</value>
     </param>
   </block>
   <connection>
