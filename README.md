@@ -2,22 +2,9 @@
 
 These are client tools used to connect to the [CTS](https://trendmicro.com/cts) infrastructure and receive RF data (IQ samples) over IP. They need a working GNU Radio 3.7 installation,  they're headless, and require no configuration file. We tested them with GNU Radio 3.7.14.
 
-# Build (with Docker)
-```bash
-$ cd cts-cli/
-$ ./docker-run.sh 'make all'
-```
-
-# Build on your Host (requires working GNU Radio 3.7)
-```bash
-$ cd cts-cli/
-$ make all
-```
-
-Should you encounter **build errors on GNURadio 3.8**, please [check this out](https://github.com/gnuradio/gnuradio/issues/2763), or just use one of the provided VMs (they're tested). The cause is unknown, but a workaround exists (comment out `global_blocks_path` in `~/.gnuradio/grc.conf`).
-
 # Usage Help
 ```bash
+$ cd cts-cli/
 $ python rx_to_fifo.py --help
 Tags to Var imported
 FIFO already exists (not creating): /path/to/cts.fifo
@@ -38,6 +25,7 @@ Options:
 
 # Start Receiver
 ```bash
+$ cd cts-cli/
 $ python rx_to_fifo.py                              \
   --server-ip=<this is given by the organizers>     \
   --rx-frequency=<each challenge has its own frequency>
@@ -64,6 +52,20 @@ rx_rate = 128000.0
 ```
 
 **IMPORTANT:** Each signal has it's own sample rate! Always check the reported sample rate before you start working on a signal. You can kill and restart the `rx_to_fifo.py` script as many times as you need (especially if it appears dead).
+
+# Build (with Docker)
+```bash
+$ cd cts-cli/
+$ ./docker-run.sh 'make all'
+```
+
+# Build on your Host (requires working GNU Radio 3.7)
+```bash
+$ cd cts-cli/
+$ make all
+```
+
+Should you encounter **build errors on GNURadio 3.8**, please [check this out](https://github.com/gnuradio/gnuradio/issues/2763), or just use one of the provided VMs (they're tested). The cause is unknown, but a workaround exists (comment out `global_blocks_path` in `~/.gnuradio/grc.conf`).
 
 # Use with Docker
 IQ samples are written to a named pipe (the FIFO file), which is an OS-dependent beast. In theory, you could run the 'rx_to_fifo.py' receiver within a Docker container and consume IQ-samples from *outside* the Docker container. However, this will work only if the host operating system is the same of the container operating system (i.e., Linux). We tried with a macOS host: didn't work!
