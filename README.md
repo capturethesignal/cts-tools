@@ -79,14 +79,15 @@ And then you can use `./cts.fifo` as any other named pipe (FIFO), e.g.
 $ dd if=cts.fifo of=samples.raw bs=2048 count=1000
 ```
 
-This will not work on MAC OSX but a trick to make this work on any OS would be to use a second container that proxies that FIFO to a TCP socket (using socat), expose that port to the host, and then use socat on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
+This will not work on any non-Linux host OS (because FIFOs are OS-specific) but a trick would be to use a second container that proxies that FIFO to a TCP socket (using `socat`), expose that port to the host, and then use `socat` on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
 
-Alternatively, simply run the dd command in docker:
+Alternatively, simply use `dd` or `cat`:
+
 ```bash
 $ ./docker-run.sh 'dd if=cts.fifo of=samples.raw bs=2048 count=1000'
 ```
 
-The resulting 'samples.raw' file can then be read directly into tools like URH.
+The resulting `samples.raw` file can then be read directly into tools like URH.
 
 # Receive with SDR Tools
 Now you can consume RF data (IQ samples) from the FIFO. For example, with GQRX you can use the following device string:
@@ -95,7 +96,7 @@ Now you can consume RF data (IQ samples) from the FIFO. For example, with GQRX y
 file=/path/to/cts.fifo,freq=0,rate=<sample rate>,repeat=false,throttle=false
 ```
 
-Needless to say, you can create a local copy of a the IQ samples of the signal by redirecting the output of the FIFO to your favorite file.
+Again, you can keep a local copy of a the IQ samples of the signal by redirecting the output of the FIFO to your favorite file.
 
 # Getting Build Errors?
 You may get compilation errors, which actually don't block the build process. 
