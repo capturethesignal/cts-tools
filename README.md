@@ -1,5 +1,6 @@
 These are client tools used to connect to the [CTS](https://trendmicro.com/cts) infrastructure and receive RF data (IQ samples) over IP. They need a working GNU Radio 3.7 installation, they're headless, and are configured via command-line options. We tested them with GNU Radio 3.7.14.
-
+- [RF Signals Over IP](#rf-signals-over-ip)
+- [Tuning to a Frequency == Connecting to a Port](#tuning-to-a-frequency--connecting-to-a-port)
 - [Getting Started](#getting-started)
 - [Start Receiving](#start-receiving)
   - [Example](#example)
@@ -18,6 +19,20 @@ These are client tools used to connect to the [CTS](https://trendmicro.com/cts) 
 - [Hacker's Delight: Automatic Sample Rate](#hackers-delight-automatic-sample-rate)
 - [Contact Us](#contact-us)
 
+# RF Signals Over IP
+In CTS contests radio signals are **streamed from the challenge server** over IP (RFoIP), and **not** over the air with antennae. The use of IP-based transports eliminates the complexity of deploying actual radios and transmitting RF over the air, not to mention per-country regulations about radio transmissions.
+
+In particular, the "raw" RF signals are tunneled via ZeroMQ and can be received with traditional RF tools, as if they were coming from a software-defined radio (SDR). GNURadio, for example, supports [ZeroMQ source blocks](https://wiki.gnuradio.org/index.php/ZMQ_SUB_Message_Source) natively to receive signals as if they were coming from a regular source block. In this way, the entry barrier is fairly low and the players could **focus on the real challenge**: Decoding the signal. For the same reason, for some editions of the contest we provide VMs or Docker images to support the GNURadio toolchain, as setting it up can be a time consuming process and is not relevant to the core of the challenge. Of course, participants are welcome in using their own setup.
+
+<img width="100%" src="images/rfoip.png" />
+
+# Tuning to a Frequency == Connecting to a Port
+You won't need to develop an IP-to-RF translation in order to start receiving signals: **we prepared a tool** that will allow you to receive signals with common RF-analysis software like GQRX and Osmocom-based utilities (e.g., `osmocom_fft`). From there on, you can capture IQ samples to a file as if you were using an SDR.
+
+All you have to do is to **choose the frequency** you want to tune to, and
+the RFoIP server will send you the right metadata to adjust the sample rate
+automatically (see below). We'll provide you the frequency of the first
+signal to kickstart the game.
 
 # Getting Started
 ```bash
