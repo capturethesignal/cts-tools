@@ -81,7 +81,7 @@ $ dd if=cts.fifo of=samples.raw bs=2048 count=1000
 
 This will not work on any non-Linux host OS (because FIFOs are OS-specific) but a trick would be to use a second container that proxies that FIFO to a TCP socket (using `socat`), expose that port to the host, and then use `socat` on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
 
-Alternatively, simply use `dd` or `cat`:
+Alternatively, simply use `dd` or `cat` from within docker:
 
 ```bash
 $ ./docker-run.sh 'dd if=cts.fifo of=samples.raw bs=2048 count=1000'
