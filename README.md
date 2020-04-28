@@ -27,7 +27,7 @@ In particular, the "raw" RF signals are tunneled via ZeroMQ and can be received 
 <img width="100%" src="images/rfoip.png" />
 
 # Tuning to a Frequency == Connecting to a Port
-You won't need to develop an IP-to-RF translation in order to start receiving signals: **we prepared a tool** that will allow you to receive signals with common RF-analysis software like GQRX and Osmocom-based utilities (e.g., `osmocom_fft`). From there on, you can capture IQ samples to a file as if you were using an SDR.
+You won't need to develop an IP-to-RF translation in order to start receiving signals: we prepared a tool that will allow you to receive signals with common RF-analysis software. Many tools, like GNURadio, GQRX and Osmocom-based utilities (e.g., osmocom_fft) work natively with this streaming FIFO system. Some tools like URH and Baudline lack support for Linux FIFOs and can be used by first copying streaming data from the RX FIFO to a standard file and then operating on the standard file. Generally, the system was designed to operate as if you were streaming IQ samples from an actual SDR.
 
 All you have to do is to **choose the frequency** you want to tune to, and
 the RFoIP server will send you the right metadata to adjust the sample rate
