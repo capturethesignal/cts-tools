@@ -74,9 +74,19 @@ $ ./docker-run.sh 'python rx_to_fifo.py                              \
   --rx-frequency=<each challenge has its own frequency>'
 ```
 
-And then you can use `./cts.fifo` as any other named pipe (FIFO).
+And then you can use `./cts.fifo` as any other named pipe (FIFO), e.g.
+```bash
+$ dd if=cts.fifo of=samples.raw bs=2048 count=1000
+```
 
-A trick to make this work on any OS would be to use a second container that proxies that FIFO to a TCP socket (using socat), expose that port to the host, and then use socat on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
+This will not work on MAC OSX but a trick to make this work on any OS would be to use a second container that proxies that FIFO to a TCP socket (using socat), expose that port to the host, and then use socat on the host to re-proxy from the exposed port back to a file. Not clean, but should work.
+
+Alternatively, simply run the dd command in docker:
+```bash
+$ ./docker-run.sh 'dd if=cts.fifo of=samples.raw bs=2048 count=1000'
+```
+
+The resulting 'samples.raw' file can then be read directly into tools like URH.
 
 # Receive with SDR Tools
 Now you can consume RF data (IQ samples) from the FIFO. For example, with GQRX you can use the following device string:
