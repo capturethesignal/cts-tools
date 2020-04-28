@@ -1,4 +1,4 @@
-These are client tools used to connect to the [CTS](https://trendmicro.com/cts) infrastructure and receive RF data (IQ samples) over IP. They need a working GNU Radio 3.7 installation,  they're headless, and require no configuration file. We tested them with GNU Radio 3.7.14.
+These are client tools used to connect to the [CTS](https://trendmicro.com/cts) infrastructure and receive RF data (IQ samples) over IP. They need a working GNU Radio 3.7 installation, they're headless, and are configured via command-line options. We tested them with GNU Radio 3.7.14.
 
 - [Getting Started](#getting-started)
 - [Start Receiving](#start-receiving)
