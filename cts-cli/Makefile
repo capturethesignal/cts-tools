@@ -1,4 +1,4 @@
-GRCS = rx_to_fifo tags_to_vars
+GRCS = rx_test rx_to_fifo tags_to_vars
 HIERS = rf_over_ip_source
 
 .PHONY: all
