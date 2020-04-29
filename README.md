@@ -172,11 +172,11 @@ If you run Linux and just want to install GNU Radio 3.7, we recomend using the f
 
 ```bash
 $ sudo add-apt-repository -y ppa:bladerf/bladerf \
-    && add-apt-repository -y ppa:myriadrf/drivers \
-    && add-apt-repository -y ppa:myriadrf/gnuradio
+    && sudo add-apt-repository -y ppa:myriadrf/drivers \
+    && sudo add-apt-repository -y ppa:myriadrf/gnuradio
 
 $ sudo apt-get update \
-    && apt-get install -y \
+    && sudo apt-get install -y \
         gr-osmosdr \
         gnuradio
 ```
