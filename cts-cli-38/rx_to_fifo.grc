@@ -1,0 +1,336 @@
+options:
+  parameters:
+    author: Jonathan Andersson
+    category: '[RX to FIFO]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: rx_to_fifo
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: RX to FIFO
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [344, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: config_file
+  id: variable
+  parameters:
+    comment: ''
+    value: config_file_path
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 516]
+    rotation: 0
+    state: enabled
+- name: fifo
+  id: variable
+  parameters:
+    comment: ''
+    value: os.path.join(os.path.expanduser('~'), "cts.fifo")
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 108.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '500000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 284]
+    rotation: 0
+    state: enabled
+- name: server_address
+  id: variable
+  parameters:
+    comment: ''
+    value: server_address_format % (server_ip, server_port) if server_address_format
+      != "" else ""
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 220.0]
+    rotation: 0
+    state: enabled
+- name: server_address_format
+  id: variable_config
+  parameters:
+    comment: ''
+    config_file: config_file
+    option: '"server_address_format"'
+    section: '"main"'
+    type: string
+    value: '"tcp://%s:%d"'
+    writeback: None
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 368]
+    rotation: 0
+    state: enabled
+- name: server_bw_per_port
+  id: variable_config
+  parameters:
+    comment: ''
+    config_file: config_file
+    option: '"server_bw_per_port"'
+    section: main
+    type: int
+    value: '1000000'
+    writeback: None
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [336, 512]
+    rotation: 0
+    state: enabled
+- name: server_port
+  id: variable
+  parameters:
+    comment: ''
+    value: int(server_port_base + (rx_frequency / server_bw_per_port))
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [496, 516]
+    rotation: 0
+    state: enabled
+- name: server_port_base
+  id: variable_config
+  parameters:
+    comment: ''
+    config_file: config_file
+    option: '"server_port_base"'
+    section: main
+    type: int
+    value: '10000'
+    writeback: None
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 512]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'True'
+    comment: ''
+    file: fifo
+    type: complex
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 244.0]
+    rotation: 0
+    state: enabled
+- name: config_file_path
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Configuration file path
+    short_id: ''
+    type: ''
+    value: '"./config.cfg"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 344]
+    rotation: 0
+    state: enabled
+- name: epy_chdir
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: ''
+    source_code: '
+
+      import os
+
+
+      script_path = os.path.dirname(os.path.realpath(__file__))
+
+      os.chdir(script_path)
+
+
+      '
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: epy_mkfifo
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: ''
+    source_code: "import os\n\npath = os.path.join(os.path.expanduser('~'), \"cts.fifo\"\
+      )\n\nif not os.path.exists(path):\n    try:\n        os.mkfifo(path)\n    except\
+      \ OSError as e:\n        print(\"Cannot create FIFO '{}': {}\".format(path,\
+      \ e))\n    else:\n        print(\"Created FIFO: {}\".format(path))\n       \
+      \ print(\"IMPORTANT: Before you can see the source sample rate, you must start\
+      \ consuming samples from the FIFO\")\nelse:\n    print(\"FIFO already exists\
+      \ (not creating): {}\".format(path))\n    print(\"IMPORTANT: Before you can\
+      \ see the source sample rate, you must start consuming samples from the FIFO\"\
+      )\n"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 172.0]
+    rotation: 0
+    state: enabled
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import os
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 60.0]
+    rotation: 0
+    state: enabled
+- name: rf_over_ip_source_0
+  id: rf_over_ip_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    parent: self if 'self' in locals() else None
+    rx_frequency: rx_frequency
+    samp_rate: samp_rate
+    server_address_format: server_address_format
+    server_bw_per_port: server_bw_per_port
+    server_ip: server_ip
+    server_port_base: server_port_base
+    throttle: throttle
+    zmq_rx_timeout: zmq_rx_timeout
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [360, 196]
+    rotation: 0
+    state: enabled
+- name: rx_frequency
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: RX Frequency
+    short_id: ''
+    type: intx
+    value: '900000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 96]
+    rotation: 0
+    state: enabled
+- name: server_ip
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Server IP
+    short_id: ''
+    type: str
+    value: '"127.0.0.1"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 472]
+    rotation: 0
+    state: enabled
+- name: throttle
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Throttle
+    short_id: ''
+    type: intx
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 192]
+    rotation: 0
+    state: enabled
+- name: zmq_rx_timeout
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ZMQ RX Timeout
+    short_id: ''
+    type: intx
+    value: '1000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 560]
+    rotation: 0
+    state: enabled
+
+connections:
+- [rf_over_ip_source_0, '0', blocks_file_sink_0, '0']
+
+metadata:
+  file_format: 1
