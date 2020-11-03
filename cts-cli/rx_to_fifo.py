@@ -4,9 +4,8 @@
 # GNU Radio Python Flow Graph
 # Title: RX to FIFO
 # Author: Jonathan Andersson
-# Generated: Tue Apr 28 17:01:46 2020
+# Generated: Thu Apr 30 17:52:54 2020
 ##################################################
-
 
 import os
 import sys
@@ -78,6 +77,8 @@ class rx_to_fifo(gr.top_block):
         )
         self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_gr_complex*1, fifo, True)
         self.blocks_file_sink_0.set_unbuffered(False)
+
+
 
         ##################################################
         # Connections

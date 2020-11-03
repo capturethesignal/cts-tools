@@ -3,9 +3,8 @@
 # GNU Radio Python Flow Graph
 # Title: RF Over IP Source
 # Author: Jonathan Andersson
-# Generated: Tue Apr 28 17:01:46 2020
+# Generated: Thu Apr 30 17:52:51 2020
 ##################################################
-
 
 import os
 import sys
@@ -63,6 +62,8 @@ class rf_over_ip_source(gr.hier_block2):
         	input_index=0 if throttle else 1,
         	output_index=0,
         )
+
+
 
         ##################################################
         # Connections
