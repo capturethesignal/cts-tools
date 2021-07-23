@@ -1,0 +1,318 @@
+options:
+  parameters:
+    author: Jonathan Andersson
+    category: '[RF Over IP]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: hb
+    hier_block_src_path: '.:'
+    id: rf_over_ip_source
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: RF Over IP Source
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: server_address
+  id: variable
+  parameters:
+    comment: ''
+    value: server_address_format % (server_ip, server_port) if server_address_format
+      != "" else ""
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 420]
+    rotation: 0
+    state: enabled
+- name: server_port
+  id: variable
+  parameters:
+    comment: ''
+    value: int(server_port_base + (rx_frequency / server_bw_per_port))
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [400, 484.0]
+    rotation: 0
+    state: enabled
+- name: blocks_selector_0
+  id: blocks_selector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    enabled: 'True'
+    input_index: 0 if throttle else 1
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    num_outputs: '1'
+    output_index: '0'
+    showports: 'True'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 356.0]
+    rotation: 0
+    state: true
+- name: blocks_throttle_0_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [632, 252.0]
+    rotation: 0
+    state: enabled
+- name: pad_sink_0
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: out
+    num_streams: '1'
+    optional: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1008, 388.0]
+    rotation: 0
+    state: enabled
+- name: parent
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Parent
+    short_id: ''
+    type: ''
+    value: self if 'self' in locals() else None
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 612]
+    rotation: 0
+    state: enabled
+- name: rx_frequency
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: RX Frequency
+    short_id: ''
+    type: long
+    value: '1000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [128, 172]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Sample Rate
+    short_id: ''
+    type: intx
+    value: '500000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 364]
+    rotation: 0
+    state: enabled
+- name: server_address_format
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Server Address Format
+    short_id: ''
+    type: ''
+    value: '"tcp://%s:%d"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 460]
+    rotation: 0
+    state: enabled
+- name: server_bw_per_port
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Server Bandwidth per Port
+    short_id: ''
+    type: intx
+    value: '1000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [152, 268]
+    rotation: 0
+    state: enabled
+- name: server_ip
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Server IP
+    short_id: ''
+    type: ''
+    value: '"127.0.0.1"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 176]
+    rotation: 0
+    state: enabled
+- name: server_port_base
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Server Port Base
+    short_id: ''
+    type: intx
+    value: '10000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 268]
+    rotation: 0
+    state: enabled
+- name: tags_to_vars_0
+  id: tags_to_vars
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    parent: parent
+    tag_map: '{"rx_rate": "set_samp_rate(value)"}'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [624, 188.0]
+    rotation: 0
+    state: enabled
+- name: throttle
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Throttle
+    short_id: ''
+    type: intx
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 172]
+    rotation: 0
+    state: enabled
+- name: zeromq_sub_source_0
+  id: zeromq_sub_source
+  parameters:
+    address: server_address
+    affinity: ''
+    alias: ''
+    comment: ''
+    hwm: '-1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    pass_tags: 'True'
+    timeout: zmq_rx_timeout
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 244.0]
+    rotation: 0
+    state: enabled
+- name: zmq_rx_timeout
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ZMQ RX Timeout
+    short_id: ''
+    type: intx
+    value: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [128, 364]
+    rotation: 0
+    state: enabled
+
+connections:
+- [blocks_selector_0, '0', pad_sink_0, '0']
+- [blocks_throttle_0_0, '0', blocks_selector_0, '0']
+- [zeromq_sub_source_0, '0', blocks_selector_0, '1']
+- [zeromq_sub_source_0, '0', blocks_throttle_0_0, '0']
+- [zeromq_sub_source_0, '0', tags_to_vars_0, '0']
+
+metadata:
+  file_format: 1
